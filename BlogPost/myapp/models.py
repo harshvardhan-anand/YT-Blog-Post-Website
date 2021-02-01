@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 class Post(models.Model):
 
     choice = (
-        ('PUBLISHED', 'published'),
-        ('DRAFT', 'draft')
+        ('published', 'PUBLISHED'),
+        ('draft', 'DRAFT')
     )
 
     title = models.CharField(max_length=50)
