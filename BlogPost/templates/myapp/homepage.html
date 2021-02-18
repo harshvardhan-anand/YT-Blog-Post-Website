@@ -8,7 +8,7 @@
 <body>
 
     {% for post in posts %}
-        {{post|linebreaks}}
+        <a href="{% url "myapp:detailview" post.pk %}">{{post|linebreaks}}</a>
     {% endfor %}
 
 </body>
