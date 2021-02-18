@@ -6,6 +6,10 @@
     <title>Homepage</title>
 </head>
 <body>
-    <h1>This is homepage - homepage.html</h1>
+
+    {% for post in posts %}
+        {{post|linebreaks}}
+    {% endfor %}
+
 </body>
 </html>
