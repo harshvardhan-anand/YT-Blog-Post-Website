@@ -11,5 +11,6 @@
         <a href="{{ post.get_absolute_url }}">{{post|linebreaks}}</a>
     {% endfor %}
 
+    {% include "myapp/pagination.html" with page=posts %}
 </body>
 </html>
