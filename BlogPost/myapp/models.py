@@ -32,3 +32,14 @@ class Post(models.Model):
 
     def get_absolute_url(self, ):
         return reverse('myapp:detailview', args=[self.pk])
+
+class Comment(models.Model):
+    email = models.EmailField()
+    name = models.CharField(max_length=50)
+    body = models.TextField()
+    post = models.ForeignKey(Post, on_delete=models.CASCADE,related_name='comments')
+    created = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField()
+
+    def __str__(self):
+        return f"Comment form {self.name} on {self.post}"
