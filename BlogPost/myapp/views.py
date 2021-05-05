@@ -3,11 +3,13 @@ from django.http import HttpResponse, HttpResponseRedirect
 from .models import Post
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import EmailForm
+from django.core.mail import send_mail
+from django.conf import settings
 
 # Create your views here.
 def post_list(request):
     all_posts = Post.objects.all()
-    paginator = Paginator(all_posts, 1)
+    paginator = Paginator(all_posts, 4)
     print(request.GET)
     page = request.GET.get('page')
     try:
@@ -27,6 +29,19 @@ def post_detail(request, pk):
         if emailform.is_valid():
             cd = emailform.cleaned_data
             print(cd)
+            name = cd['name']
+            to = cd['to']
+            message = cd['comment']
+            subject = f"Shared post by {name}"
+            senders_email = settings.EMAIL_HOST_USER
+
+            send_mail(
+                subject, 
+                message,
+                senders_email,
+                [to]
+            )
+
             return HttpResponseRedirect(reverse('myapp:detailview', args=[pk]))
     return render(request, 'myapp/detail.html', {
         'post':post, 
