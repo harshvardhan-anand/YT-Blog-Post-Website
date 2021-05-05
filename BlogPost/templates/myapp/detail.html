@@ -12,5 +12,12 @@
     body = {{post.body}}<br>
     status = {{post.status}}<br>
     author = {{post.author}}<br>
+
+
+    <form method="post">
+        {% csrf_token %}
+        {{emailform.as_p}}
+        <input type="submit" value="Send Email">
+    </form>
 </body>
 </html>

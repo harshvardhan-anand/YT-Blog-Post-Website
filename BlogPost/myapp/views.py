@@ -1,7 +1,8 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, reverse
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import Post
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from .forms import EmailForm
 
 # Create your views here.
 def post_list(request):
@@ -19,4 +20,15 @@ def post_list(request):
 
 def post_detail(request, pk):
     post = Post.objects.get(pk = pk)
-    return render(request, 'myapp/detail.html', {'post':post})
+    emailform = EmailForm()
+    if request.method == 'POST':
+        print(request.POST)
+        emailform = EmailForm(request.POST)
+        if emailform.is_valid():
+            cd = emailform.cleaned_data
+            print(cd)
+            return HttpResponseRedirect(reverse('myapp:detailview', args=[pk]))
+    return render(request, 'myapp/detail.html', {
+        'post':post, 
+        'emailform':emailform
+    })
