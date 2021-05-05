@@ -19,5 +19,7 @@
         {{emailform.as_p}}
         <input type="submit" value="Send Email">
     </form>
+
+    <a href="{% url "myapp:commentview" post.pk%}">Write a comment</a>
 </body>
 </html>

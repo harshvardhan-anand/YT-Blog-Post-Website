@@ -2,7 +2,7 @@ from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Post
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .forms import EmailForm
+from .forms import EmailForm, CommentForm
 from django.core.mail import send_mail
 from django.conf import settings
 
@@ -47,3 +47,17 @@ def post_detail(request, pk):
         'post':post, 
         'emailform':emailform
     })
+
+
+def comment_view(request, pk):
+    commentform = CommentForm()
+    if request.method=='POST':
+        commentform = CommentForm(request.POST)
+        if commentform.is_valid():
+            cd = commentform.cleaned_data
+            print(cd)
+            new_comment = commentform.save(commit=False)
+            new_comment.post = Post.objects.get(pk=pk)
+            new_comment.save()
+        return HttpResponseRedirect(reverse('myapp:detailview', args=[pk]))
+    return render(request, 'myapp/comment.html', {'commentform':commentform})
