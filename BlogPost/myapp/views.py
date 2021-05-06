@@ -9,7 +9,7 @@ from django.conf import settings
 # Create your views here.
 def post_list(request):
     all_posts = Post.objects.all()
-    paginator = Paginator(all_posts, 4)
+    paginator = Paginator(all_posts, 10)
     print(request.GET)
     page = request.GET.get('page')
     try:
