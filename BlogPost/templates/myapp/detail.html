@@ -21,5 +21,9 @@
     </form>
 
     <a href="{% url "myapp:commentview" post.pk%}">Write a comment</a>
+    <br>
+    {% for comment in comments %}
+        {{comment|linebreaks}} - {{comment.email}} {{comment.active}} Created Time - {{comment.created}}
+    {%endfor%}
 </body>
 </html>

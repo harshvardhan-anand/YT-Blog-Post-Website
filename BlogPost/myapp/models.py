@@ -42,4 +42,4 @@ class Comment(models.Model):
     active = models.BooleanField(default=True)
 
     def __str__(self):
-        return f"Comment form {self.name} on {self.post}"
+        return f"Comment from {self.name} - {self.body}"
