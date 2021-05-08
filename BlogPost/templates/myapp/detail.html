@@ -1,3 +1,4 @@
+{% load blog_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +8,7 @@
     <title>Document</title>
 </head>
 <body>
+    {% total_post %}
     Title = {{post.title}}<br>
     slug = {{post.slug}}<br>
     body = {{post.body}}<br>

@@ -1,3 +1,4 @@
+{% load blog_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +7,8 @@
     <title>Homepage</title>
 </head>
 <body>
+
+    <h3> Total Post - {% total_post %} </h3>
 
     {% for post in posts %}
         <a href="{{ post.get_absolute_url }}">{{post|linebreaks}}</a>
