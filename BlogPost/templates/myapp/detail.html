@@ -25,7 +25,7 @@
     <h3> Latest Post </h3>
     {% show_latest_posts 5 %}
 
-    <h3> Comment</h3>
+    <h3> Share</h3>
     <form method="post">
         {% csrf_token %}
         {{emailform.as_p}}
