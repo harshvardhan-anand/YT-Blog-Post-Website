@@ -21,6 +21,10 @@
         <a href="{{post.get_absolute_url}}">{{post|linebreaks}}</a>
     {% endfor %}
 
+
+    <h3> Latest Post </h3>
+    {% show_latest_posts 5 %}
+
     <h3> Comment</h3>
     <form method="post">
         {% csrf_token %}
