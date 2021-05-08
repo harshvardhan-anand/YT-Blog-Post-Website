@@ -35,6 +35,9 @@ class Post(models.Model):
     def get_absolute_url(self, ):
         return reverse('myapp:detailview', args=[self.pk])
 
+    class Meta:
+        ordering = ('-created',)
+
 class Comment(models.Model):
     email = models.EmailField()
     name = models.CharField(max_length=50)
