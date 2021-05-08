@@ -5,6 +5,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import EmailForm, CommentForm
 from django.core.mail import send_mail
 from django.conf import settings
+from django.db.models import Count
 
 # Create your views here.
 def post_list(request):
@@ -24,6 +25,10 @@ def post_detail(request, pk):
     post = Post.objects.get(pk = pk)
     emailform = EmailForm()
     comments = Comment.objects.filter(post=post)
+    post_tags = post.tags.all()
+    print(post_tags)
+    similar_posts = Post.objects.filter(status='published', tags__in=post_tags).exclude(pk=pk)
+    similar_posts = similar_posts.annotate(tag_count=Count('tags')).order_by('-tag_count', '-created')[:3]
     if request.method == 'POST':
         print(request.POST)
         emailform = EmailForm(request.POST)
@@ -47,7 +52,8 @@ def post_detail(request, pk):
     return render(request, 'myapp/detail.html', {
         'post':post, 
         'emailform':emailform,
-        'comments':comments
+        'comments':comments,
+        'similar_posts':similar_posts
     })
 
 

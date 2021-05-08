@@ -12,8 +12,14 @@
     body = {{post.body}}<br>
     status = {{post.status}}<br>
     author = {{post.author}}<br>
+    tags - {{post.tags.all}}<br>
 
+    <h3>Similar Post</h3>
+    {% for post in similar_posts %}
+        <a href="{{post.get_absolute_url}}">{{post|linebreaks}}</a>
+    {% endfor %}
 
+    <h3> Comment</h3>
     <form method="post">
         {% csrf_token %}
         {{emailform.as_p}}
